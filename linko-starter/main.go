@@ -16,11 +16,13 @@ func main() {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 
 	httpPort := flag.Int("port", 8899, "port to listen on")
+	fmt.Printf("Linko is running on http://localhost:%d", *httpPort)
 	dataDir := flag.String("data", "./data", "directory to store data")
 	flag.Parse()
 
 	status := run(ctx, cancel, *httpPort, *dataDir)
 	cancel()
+	fmt.Println("Linko is shutting down")
 	os.Exit(status)
 }
 
